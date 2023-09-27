@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'habit',
+    'django_celery_beat',
 
 ]
 
@@ -142,4 +143,36 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+CORS_ALLOWED_ORIGINS = [
+    "https://read-only.example.com",
+    "https://read-and-write.example.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_TIMEZONE = 'Europe/Moscow'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_USE_TSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+
+CELERY_BEAT_SCHEDULE = {
+    'task_name': {
+        'task': 'habit.tasks.send_habit_message',
+        'schedule': timedelta(seconds=10),
+    }
+
 }
