@@ -1,18 +1,19 @@
-from django.shortcuts import render
-from rest_framework import generics
+
 from rest_framework.generics import ListAPIView, UpdateAPIView
 
 from users.models import User
 from users.serializers import UserSerializer
 
+
 # Create your views here.
 class UserListView(ListAPIView):
+    """Список пользавателей"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
 class UserUpdateView(UpdateAPIView):
-
+    """Обновление пользавателя"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

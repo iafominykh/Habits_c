@@ -5,7 +5,7 @@ from habit.validators import HabitValidator
 
 
 class HabitSerializer(serializers.ModelSerializer):
-
+    """ Класс сериализатор привычки """
     class Meta:
         model = Habit
         fields = '__all__'
