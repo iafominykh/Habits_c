@@ -12,6 +12,7 @@ class UserListView(ListAPIView):
 
 
 class UserUpdateView(UpdateAPIView):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
