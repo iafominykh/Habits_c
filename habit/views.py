@@ -8,6 +8,7 @@ from users.permissions import IsOwner
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
+    """ Создание привычки """
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
@@ -16,6 +17,7 @@ class HabitCreateAPIView(generics.CreateAPIView):
 
 
 class HabitListAPIView(generics.ListAPIView):
+    """ Вывод списка привычек """
     serializer_class = HabitSerializer
     pagination_class = HabitPagination
     queryset = Habit.objects.all()
@@ -28,6 +30,7 @@ class HabitListAPIView(generics.ListAPIView):
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
+    """ Вывод одной привычки """
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsOwner]
@@ -37,6 +40,7 @@ class HabitRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
+    """ Обновление привычки """
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
@@ -47,6 +51,7 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
 
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
+    """ Удаление привычки """
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
     def get_queryset(self):
@@ -55,6 +60,7 @@ class HabitDestroyAPIView(generics.DestroyAPIView):
 
 
 class HabitPublicListAPIView(generics.ListAPIView):
+    """ Вывод списка привычек с публикацией """
     serializer_class = HabitSerializer
     queryset = Habit.objects.filter(is_publication=True)
     pagination_class = HabitPagination

@@ -4,6 +4,7 @@ from users.models import UserRoles
 
 
 class IsAdmin(BasePermission):
+    """ Класс для определения администратора """
     message = "Вы не являетесь администратором!"
 
     def has_permission(self, request, view):
@@ -13,6 +14,7 @@ class IsAdmin(BasePermission):
 
 
 class IsOwner(BasePermission):
+    """ Класс для определения владельца """
     message = 'Вы не являетесь владельцем!'
 
     def has_object_permission(self, request, view, obj):
