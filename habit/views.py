@@ -1,8 +1,10 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from habit.models import Habit
 from habit.paginators import HabitPagination
 from habit.serializers import HabitSerializer
+from users.permissions import IsOwner
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
@@ -28,7 +30,7 @@ class HabitListAPIView(generics.ListAPIView):
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-
+    permission_classes = [IsOwner]
     def get_queryset(self):
         user = self.request.user
         return Habit.objects.filter(user=user)
@@ -37,6 +39,7 @@ class HabitRetrieveAPIView(generics.RetrieveAPIView):
 class HabitUpdateAPIView(generics.UpdateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
         user = self.request.user
@@ -45,7 +48,7 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
     queryset = Habit.objects.all()
-
+    permission_classes = [IsAuthenticated, IsOwner]
     def get_queryset(self):
         user = self.request.user
         return Habit.objects.filter(user=user)
